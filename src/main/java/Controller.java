@@ -6,6 +6,9 @@ public class Controller {
     String command = "";
 
     public void run() {
+        new WiseSayingFile().createFile();
+        new Command().downLoad(new WiseSayingFile().readFile());
+
         System.out.println("== 명언 앱 ==");
 
         while (!command.equals("종료")) {
@@ -25,7 +28,7 @@ public class Controller {
                 feat.modify(command);
             }
         }
+
+        new WiseSayingFile().writeFile(new Command().upLoad());
     }
-
-
 }

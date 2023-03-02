@@ -1,12 +1,18 @@
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Command {
-    static List<WiseSaying> wiseSayingList = new ArrayList<>();
+    static List<WiseSaying> wiseSayingList;
     Scanner sc = new Scanner(System.in);
     int id = 1;
+
+    public void downLoad(List<WiseSaying> wiseSayingList) {
+        this.wiseSayingList = wiseSayingList;
+    }
+
+    public List<WiseSaying> upLoad() {
+        return wiseSayingList;
+    }
 
     public boolean regist() {
         System.out.print("명언 : ");
@@ -27,6 +33,11 @@ public class Command {
     public void print() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
+
+        if (wiseSayingList.isEmpty()) {
+            System.out.println("비어있어?");
+            return;
+        }
 
         for (int index = wiseSayingList.size() - 1; index >= 0; index--) {
             WiseSaying wiseSaying = wiseSayingList.get(index);

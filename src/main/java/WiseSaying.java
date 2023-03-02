@@ -1,4 +1,6 @@
-public class WiseSaying {
+import java.io.Serializable;
+
+public class WiseSaying implements Serializable {
     private String saying = "";
     private String author = "";
     private int id;
