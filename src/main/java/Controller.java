@@ -18,6 +18,9 @@ public class Controller {
             else if (command.equals("목록")) {
                 feat.print();
             }
+            else if (command.startsWith("삭제")) {
+                feat.delete(command);
+            }
         }
     }
 

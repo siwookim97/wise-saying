@@ -32,4 +32,28 @@ public class Command {
             System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getSaying());
         }
     }
+
+    public boolean delete(String command) {
+        command = command.replace("삭제", "");
+
+        if (command.startsWith("?id=")) {
+            command = command.replace("?id=", "");
+
+            for (WiseSaying wiseSaying : wiseSayingList) {
+                if (wiseSaying.getId() == (Integer.parseInt(command))) {
+                    wiseSayingList.remove(wiseSaying);
+                    System.out.println((Integer.parseInt(command)) + "번 명령이 삭제되었습니다.");
+                    return true;
+                }
+            }
+
+            System.out.println(Integer.parseInt(command) + "번 명언은 존재하지 않습니다.") ;
+        }
+        else {
+            System.out.println("올바른 삭제 명령 형식을 지켜주세요.");
+            return false;
+        }
+
+        return true;
+    }
 }
