@@ -21,6 +21,9 @@ public class Controller {
             else if (command.startsWith("삭제")) {
                 feat.delete(command);
             }
+            else if (command.startsWith("수정")) {
+                feat.modify(command);
+            }
         }
     }
 
