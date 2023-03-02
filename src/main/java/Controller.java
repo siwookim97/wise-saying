@@ -27,6 +27,9 @@ public class Controller {
             else if (command.startsWith("수정")) {
                 feat.modify(command);
             }
+            else if (command.equals("빌드")) {
+                feat.build();
+            }
         }
 
         new WiseSayingFile().writeFile(new Command().upLoad());

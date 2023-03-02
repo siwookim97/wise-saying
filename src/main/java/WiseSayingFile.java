@@ -3,25 +3,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingFile {
-    final static String route = "C:\\Users\\sue\\java-project\\wise-saying\\wise-saying.txt";
-    static File file = new File(route);
+    final static String fileRoute = "C:\\Users\\sue\\java-project\\wise-saying\\wise-saying.txt";
+    static File textFile = new File(fileRoute);
 
     public void createFile() {
         try {
-            file.createNewFile();
+            textFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     public void writeFile(List<WiseSaying> list) {
         try {
-            FileOutputStream outputStream = new FileOutputStream(file);
+            FileOutputStream fileOutputStream = new FileOutputStream(textFile);
 
-            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-            oos.writeObject(list);
-            oos.close();
+            ObjectOutputStream fileOos = new ObjectOutputStream(fileOutputStream);
+
+            fileOos.writeObject(list);
+            fileOos.close();
+
         } catch (Exception e) {
             return;
         }
@@ -31,7 +32,7 @@ public class WiseSayingFile {
         List<WiseSaying> wiseSayingList = new ArrayList<>();
 
         try {
-            FileInputStream inputStream = new FileInputStream(file);
+            FileInputStream inputStream = new FileInputStream(textFile);
 
             ObjectInputStream ois = new ObjectInputStream(inputStream);
             wiseSayingList = (ArrayList<WiseSaying>) ois.readObject();

@@ -1,3 +1,12 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,7 +44,6 @@ public class Command {
         System.out.println("----------------------");
 
         if (wiseSayingList.isEmpty()) {
-            System.out.println("비어있어?");
             return;
         }
 
@@ -97,5 +105,26 @@ public class Command {
         }
 
         return true;
+    }
+
+    public String build() {
+        String path = "C:\\Users\\sue\\java-project\\wise-saying\\data.json";
+
+        JSONArray jsonArray = new JSONArray();
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("saying", wiseSaying.getSaying());
+            jsonObject.put("author", wiseSaying.getAuthor());
+            jsonObject.put("id", wiseSaying.getId());
+            jsonArray.put(jsonObject);
+        }
+
+        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
+            out.write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return jsonArray.toString();
     }
 }
