@@ -1,10 +1,12 @@
 public class WiseSaying {
     private String saying = "";
     private String author = "";
+    private int id;
 
-    public WiseSaying(String saying, String author) {
+    public WiseSaying(String saying, String author, int id) {
         this.saying = saying;
         this.author = author;
+        this.id = id;
     }
 
     public String getSaying() {
@@ -21,5 +23,13 @@ public class WiseSaying {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

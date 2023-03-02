@@ -10,11 +10,13 @@ public class Controller {
 
         while (!command.equals("종료")) {
             System.out.print("명령) ");
-            command = sc.nextLine();
-            command.trim();
+            command = sc.nextLine().trim();
 
             if (command.equals("등록")) {
                 feat.regist();
+            }
+            else if (command.equals("목록")) {
+                feat.print();
             }
         }
     }
