@@ -1,3 +1,5 @@
+import entity.WiseSaying;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

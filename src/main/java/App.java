@@ -1,13 +1,15 @@
+import controller.WiseSayingController;
+
 import java.util.Scanner;
 
-public class Controller {
-    Command feat = new Command();
+public class App {
+    WiseSayingController feat = new WiseSayingController();
     Scanner sc = new Scanner(System.in);
     String command = "";
 
     public void run() {
         new WiseSayingFile().createFile();
-        new Command().downLoad(new WiseSayingFile().readFile());
+        new WiseSayingController().downLoad(new WiseSayingFile().readFile());
 
         System.out.println("== 명언 앱 ==");
 
@@ -32,6 +34,6 @@ public class Controller {
             }
         }
 
-        new WiseSayingFile().writeFile(new Command().upLoad());
+        new WiseSayingFile().writeFile(new WiseSayingController().upLoad());
     }
 }

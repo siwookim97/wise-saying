@@ -1,48 +1,30 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.json.JSONArray;
-import org.json.JSONObject;
+package service;
+
+import entity.WiseSaying;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Command {
-    static List<WiseSaying> wiseSayingList;
-    Scanner sc = new Scanner(System.in);
-    int id = 1;
+public class WiseSayingService {
+    private Scanner sc = new Scanner(System.in);
+    private List<WiseSaying> wiseSayingList;
 
-    public void downLoad(List<WiseSaying> wiseSayingList) {
-        this.wiseSayingList = wiseSayingList;
+    public WiseSayingService() {
+        this.wiseSayingList = new ArrayList<>();
     }
 
-    public List<WiseSaying> upLoad() {
-        return wiseSayingList;
-    }
+    public long regist(String saying, String author, long id) {
+        wiseSayingList.add(new WiseSaying(saying, author, id));
 
-    public boolean regist() {
-        System.out.print("명언 : ");
-        String saying = sc.nextLine();
-        System.out.print("작가 : ");
-        String author = sc.nextLine();
-
-        try {
-            wiseSayingList.add(new WiseSaying(saying, author, id));
-            System.out.println(id++ + "번 명언이 등록되었습니다.");
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
+        return id;
     }
 
     public void print() {
-        System.out.println("번호 / 작가 / 명언");
-        System.out.println("----------------------");
-
         if (wiseSayingList.isEmpty()) {
             return;
         }
@@ -53,38 +35,33 @@ public class Command {
         }
     }
 
-    public boolean delete(String command) {
+    public long delete(String command) {
         command = command.replace("삭제", "");
 
         if (command.startsWith("?id=")) {
             command = command.replace("?id=", "");
-
             for (WiseSaying wiseSaying : wiseSayingList) {
-                if (wiseSaying.getId() == (Integer.parseInt(command))) {
+                long id = Long.parseLong(command);
+                if (wiseSaying.getId() == id) {
                     wiseSayingList.remove(wiseSaying);
-                    System.out.println((Integer.parseInt(command)) + "번 명령이 삭제되었습니다.");
-                    return true;
+
+                    return id;
                 }
             }
-
-            System.out.println(Integer.parseInt(command) + "번 명언은 존재하지 않습니다.") ;
-        }
-        else {
-            System.out.println("올바른 삭제 명령 형식을 지켜주세요.");
-            return false;
         }
 
-        return true;
+        return 0;
     }
 
-    public boolean modify(String command) {
+    public long modify(String command) {
         command = command.replace("수정", "");
 
         if (command.startsWith("?id=")) {
             command = command.replace("?id=", "");
+            long id = Long.parseLong(command);
 
             for (WiseSaying wiseSaying : wiseSayingList) {
-                if (wiseSaying.getId() == (Integer.parseInt(command))) {
+                if (wiseSaying.getId() == id) {
                     System.out.println("명언(기존) : " + wiseSaying.getSaying());
                     System.out.print("명언 : ");
                     wiseSaying.setSaying(sc.nextLine());
@@ -93,21 +70,18 @@ public class Command {
                     System.out.print("작가 : ");
                     wiseSaying.setAuthor(sc.nextLine());
 
-                    return true;
+                    return id;
                 }
             }
 
             System.out.println(Integer.parseInt(command) + "번 명언은 존재하지 않습니다.");
         }
-        else {
-            System.out.println("올바른 수정 명령 형식을 지켜주세요.");
-            return false;
-        }
 
-        return true;
+        System.out.println("올바른 수정 명령 형식을 지켜주세요.");
+        return 0;
     }
 
-    public String build() {
+    public void build() {
         String path = "C:\\Users\\sue\\java-project\\wise-saying\\data.json";
 
         JSONArray jsonArray = new JSONArray();
@@ -116,15 +90,15 @@ public class Command {
             jsonObject.put("saying", wiseSaying.getSaying());
             jsonObject.put("author", wiseSaying.getAuthor());
             jsonObject.put("id", wiseSaying.getId());
-            jsonArray.put(jsonObject);
+            jsonArray.add(jsonObject);
         }
 
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
             out.write(jsonArray.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("빌드가 실패 했습니다.");
         }
 
-        return jsonArray.toString();
+        System.out.println("빌드가 완료 되었습니다.");
     }
 }

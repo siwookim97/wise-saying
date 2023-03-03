@@ -1,11 +1,13 @@
+package entity;
+
 import java.io.Serializable;
 
 public class WiseSaying implements Serializable {
-    private String saying = "";
-    private String author = "";
-    private int id;
+    private String saying;
+    private String author;
+    private long id;
 
-    public WiseSaying(String saying, String author, int id) {
+    public WiseSaying(String saying, String author, long id) {
         this.saying = saying;
         this.author = author;
         this.id = id;
@@ -27,11 +29,11 @@ public class WiseSaying implements Serializable {
         this.author = author;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
